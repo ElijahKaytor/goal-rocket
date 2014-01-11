@@ -1,0 +1,35 @@
+/*! File: components/animations.sass */
+
+@import 'compass/css3/transform'
+@import 'css3/animation'
+
+// Spinning stars
+#stars
+    +animate(spin, 800s, 0, linear)
+
+// Bouncing rockets
+#goalstronaught
+    +animate(rocket-bounce, 6s)
+
+.friends
+    +animate(rocket-bounce, 5s)
+
++keyframes(rocket-bounce)
+    0%
+        margin-top: 0
+    50%
+        margin-top: 10px
+    100%
+        margin-top: 0
+
++keyframes(spin)
+    0%
+        +transform(rotate(0deg))
+    25%
+        +transform(rotate(90deg))
+    50%
+        +transform(rotate(180deg))
+    75%
+        +transform(rotate(270deg))
+    100%
+        +transform(rotate(360deg))

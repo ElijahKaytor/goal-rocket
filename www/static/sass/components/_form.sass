@@ -1,0 +1,93 @@
+/*! File: components/_form.sass */
+
+@import 'compass/css3/border-radius'
+@import 'compass/css3/transition'
+
+#notify-form input, #notify-form div, #notify-form button
+    vertical-align: bottom
+    padding: 10px
+    margin: 0
+
+// Generic Input styling
+#email-container, #ns-email, #submit, #ns-submit
+    +border-radius(4px)
+    font: 300 1.2em ('Colaborate', sans-serif)
+    background-color: white
+    border: none
+    color:  #333
+    
+    &:focus
+        outline: none
+
+// Submit buttons
+#submit, #ns-submit
+    +transition-property(background-color)
+    +transition-duration(300ms)
+    cursor: pointer
+    color: white
+    background-color: #f2d400
+    border: 1px solid transparent
+#submit:hover, #ns-submit:hover
+    background-color: #fbb03b
+
+#submit
+    padding-right: 20px
+#submit:before
+    content: '\25B6'
+    padding: 5px
+
+// Custom Email input
+#email-container, #ns-email
+    width: 240px
+    height: 20px
+
+#email-container
+    position: relative
+    display: inline-block
+    white-space: nowrap
+    
+    span
+        vertical-align: top
+        float: left
+
+#email
+    margin: 0
+    padding: 0
+    display: inline-block
+    white-space: nowrap
+    overflow: hidden
+    text-overflow: clip
+    word-wrap: normal
+
+#email:after
+    content: ''
+    position: absolute
+    width: 240px
+    height: 20px
+    top: 10px
+    left: 10px
+
+#email div
+    display: inline
+    padding: 0
+    margin: 0
+#email br
+    display: none
+
+#email:empty:before
+    content: attr(placeholder)
+    word-wrap: normal
+    color: #78888f
+    width: 100%
+
+#email:focus
+    outline: none
+
+#email:not(:empty) ~ #domain-helper
+    display: inline-block
+
+#domain-helper
+    color: #999
+    padding: 0
+    display: none
+    margin-left: 1px

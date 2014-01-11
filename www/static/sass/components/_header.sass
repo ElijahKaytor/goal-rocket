@@ -1,0 +1,41 @@
+/*! File: components/_header.sass */
+
+@import 'compass/css3/border-radius'
+@import 'compass/css3/transition'
+
+header
+    background-color: white
+    position: absolute
+    text-align: right
+    z-index: 200
+    height: 70px
+    width: 100%
+    left: 0
+    top: 0
+    
+    img
+        float: left
+        margin: 20px 40px
+    
+    span, #notify-button
+        position: relative
+        font-weight: 100
+        font-size: 1.4em
+        color:  #78888f
+        margin: 10px
+        top: 20px
+    
+    #notify-button
+        +transition-property(background-color)
+        +transition-duration(300ms)
+        +border-radius(3px)
+        
+        background-color: #f2d400
+        text-decoration: none
+        margin-right: 40px
+        padding: 5px 24px
+        font-size: 1.6em
+        color: white
+    
+    #notify-button:hover
+        background-color: #fbb03b

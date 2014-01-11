@@ -1,0 +1,26 @@
+/*! File: components/_body.sass */
+
+// Compass images for background gradient
+@import 'compass/css3/images'
+
+// Ensure 100% viewport height
+html, body
+    height: 100%
+    max-width: 100%
+    min-height: 100%
+    overflow: hidden
+
+body
+    color: white
+    padding-top: 70px
+    font-weight: 100
+    font-family: 'Colaborate'
+    
+    // Background Gradient with static fallback
+    background-color: #00a0a5
+    +background-image(linear-gradient(#006d87, #00a0a5 40%, white 98%, white))
+
+// Permalink to top of page
+#notify-me
+    position: fixed
+    top: 0

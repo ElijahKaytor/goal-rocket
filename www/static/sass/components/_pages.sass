@@ -1,0 +1,14 @@
+/*! File: components/_pages.sass */
+
+[class*=page-]
+    position: relative
+    +transition-duration(200ms, 400ms)
+    +transition-property(opacity, top)
+    
+    top: 0
+    opacity: 1
+    
+    &.inactive
+        pointer-events: none
+        top: -100px
+        opacity: 0
