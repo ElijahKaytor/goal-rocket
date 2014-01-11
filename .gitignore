@@ -1,0 +1,19 @@
+# Ignore SASS Caches
+.sass-cache
+
+# Ignore libraries
+node_modules
+
+# Ignore Cloud9 Settings
+.c9revisions
+.settings
+
+# Ignore Compiled JavaScript
+*.min.map
+*.min.js
+
+# Ignore Compiled CSS
+*.sass.css
+*.sass.css.map
+
+
