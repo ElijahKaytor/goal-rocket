@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang=en>
+    <head>
+        <!-- Metadata -->
+        <meta charset=utf-8>
+        <meta author='DeadGhost Creative Agency'>
+        <meta description='Take your goals to new heights with Goal Rocket!'>
+        <meta keywords=goal,tracking,life,goal,management,collaboration,competition>
+        <title>Goal Rocket</title>
+        
+        <!-- OpenGraph data -->
+        <meta property=og:type content=website>
+        <meta property=og:title content='Goal Rocket'>
+        <meta property=og:site_name content='Goal Rocket'>
+        <meta property=og:url content=http://goalrocket.net/>
+        <meta property=og:image content=http://goalrocket.net/static/img/logo.png>
+        <meta property=og:description content='Take your goals to new heights with Goal Rocket!'>
+        
+        <!-- Analytics -->
+        <meta name=ga-id content=UA-43875802-5>
+        <meta name=ga-site content=goalrocket.net>
+        
+        <!-- Database -->
+        <meta name=firebase content=https://goalrocket-beta.firebaseio.com/>
+        
+        <!-- Stylesheets (With Sourcemaps) -->
+        <link rel=stylesheet href=/static/sass/index.sass.css>
+        
+        <!-- Resource Prefetching -->
+        <link rel=dns-prefetch href=//goalrocket-beta.firebaseio.com>
+        <link rel=dns-prefetch href=//www.google-analytics.com>
+    </head>
+    
+    <body class=no-script>
+        <script>document.body.className = '';</script>
+        
+        <!-- NoScript support for form hiding -->
+        <span id=notify-me></span>
+        
+        <header>
+            <a id=home href=#>
+                <img src=/static/img/logo.png title='Goal Rocket' alt='Goal Rocket'>
+            </a>
+            
+            <span>Coming Soon</span>
+            <a href=#notify-me>Notify Me</a>
+        </header>
+        
+        <section id=spiel>
+            <div id=prompt>
+                <p id=heights class=page-0>Take your goals to new heights.</p>
+                <p id=ready class='page-3 page-4 page-5 inactive'>Ready to reach your goals?</p>
+                <p id=self class='page-1 page-2 inactive'>Challenge yourself.</p>
+                <p id=compete class='page-2 inactive'>Challenge your friends.</p>
+            </div>
+            
+            <!-- Sign-up for notification form -->
+            <form class='page-3 page-4 page-5 inactive' id=notify-form method=post action=/notify>
+                <input id=email type=email name=email placeholder='Enter your email address'>
+                
+                <!-- Seperate DOM elements for JS and Non-JS users -->
+                <input id=ns-submit type=submit value='Notify Me'>
+                <button id=submit style=display:none;>Notify Me</button>
+            </form>
+            
+            <script>
+                document.getElementById('submit').style.display = '';
+                document.getElementById('ns-submit').style.display = 'none';
+            </script>
+        </section>
+        
+        <section id=background>
+            <img id=goalstronaught src=/static/img/goalstronaught.png>
+            <img class='friends page-2 page-3 page-4 inactive' src=/static/img/goal-hearted-friends.png>
+            <img id=clouds src=/static/img/clouds.png>
+            <img id=stars src=/static/img/stars.png>
+        </section>
+        
+        <footer>
+            <!-- Copyright 2014 DeadGhost Creative Agency -->
+            <!-- Design:      Jenee Jernigan <jeneejernigan gmail.com> -->
+            <!-- Development: Elijah Kaytor  <elijah.kaytor gmail.com> -->
+            <a href=http://deadgho.st/ target=_blank>
+                <img id=author src=/static/img/deadghost.png alt='DeadGhost Creative Agency'>
+            </a>
+        </footer>
+        
+        <!-- JavaScript resources (With Sourcemaps) -->
+        <script src=/static/js/onload.min.js></script>
+        <script src=/static/js/deffered.min.js async></script>
+    </body>
+</html>
