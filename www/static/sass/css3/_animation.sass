@@ -1,0 +1,24 @@
+@mixin keyframes($name)
+    @-webkit-keyframes #{$name}
+        @content
+    @-moz-keyframes #{$name}
+        @content
+    @-ms-keyframes #{$name}
+        @content
+    @keyframes #{$name}
+        @content
+
+@mixin animate($name, $duration, $delay: 0, $function: ease, $mode: both)
+    animation-name: $name
+    animation-duration: $duration
+    animation-delay: $delay
+    animation-timing-function: $function
+    animation-fill-mode: $mode
+    animation-iteration-count: infinite
+    
+    -webkit-animation-name: $name
+    -webkit-animation-duration: $duration
+    -webkit-animation-delay: $delay
+    -webkit-animation-timing-function: $function
+    -webkit-animation-fill-mode: $mode
+    -webkit-animation-iteration-count: infinite

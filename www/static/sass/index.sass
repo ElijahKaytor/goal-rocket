@@ -1,0 +1,217 @@
+/*! File:   index.sass
+ *  Author: Elijah Kaytor
+ */
+
+@import 'compass/css3/border-radius'
+@import 'compass/css3/transition'
+@import 'compass/css3/transform'
+@import 'compass/css3/images'
+@import 'css3/animation'
+
+@font-face
+    font-weight: 200
+    font-family: 'Colaborate'
+    src: url('/static/fonts/ColabThi.otf') format('opentype')
+
+@font-face
+    font-weight: 400
+    font-family: 'Colaborate'
+    src: url('/static/fonts/ColabLig.otf') format('opentype')
+
+// Ensure 100% height
+html, body
+    height: 100%
+    max-width: 100%
+    min-height: 100%
+    overflow: hidden
+
+// Global styling
+body
+    color: white
+    padding-top: 70px
+    font-weight: 200
+    font-family: 'Colaborate'
+    
+    // Background Gradient
+    background-color: #00a0a5
+    +background-image(linear-gradient(#006d87, #00a0a5 40%, white 98%, white))
+
+// Header Styling
+header
+    background-color: white
+    position: absolute
+    text-align: right
+    z-index: 200
+    height: 70px
+    width: 100%
+    left: 0
+    top: 0
+    
+    img
+        float: left
+        margin: 20px 40px
+    
+    span, a
+        position: relative
+        font-weight: lighter
+        color:  #78888f
+        font-size: 1.4em
+        margin: 10px
+        top: 20px
+    
+    a[href='#notify-me']
+        +transition-property(background-color)
+        +transition-duration(300ms)
+        +border-radius(3px)
+        background-color: #f2d400
+        text-decoration: none
+        margin-right: 40px
+        padding: 5px 24px
+        font-size: 1.6em
+        color: white
+    
+    a:hover
+        background-color: #fbb03b
+
+
+
+// Spiel styling
+#spiel
+    position: fixed
+    z-index: 200
+    left: 20%
+    top: 35%
+    
+    #prompt p
+        margin: 4px
+        font-size: 2em
+
+#notify-form
+    margin-top: -50px
+
+#notify-me:target ~ #spiel #notify-form
+    display: block
+
+// Input styling
+#email, #submit, #ns-submit
+    font-family: 'Colaborate'
+    font-weight: 400
+    +border-radius(4px)
+    color:  #333
+    font-size: 1.2em
+    border: none
+    padding: 10px
+
+    &:focus
+        outline: none
+
+#email
+    width: 200px
+
+#submit, #ns-submit
+    color: white
+    cursor: pointer
+    padding-right: 20px
+    +transition-property(background-color)
+    +transition-duration(300ms)
+    background-color: #f2d400
+
+#submit:hover, #ns-submit:hover
+    background-color: #fbb03b
+
+#submit:before
+    content: '\25B6'
+    padding: 5px
+
+// Images
+#background
+    position: fixed
+    top: 70px
+    left: 0
+    width: 100%
+    height: 100%
+    overflow: hidden
+    
+    img
+        z-index: -100
+        pointer-events: none
+
+#stars
+    overflow: hidden
+    position: fixed
+    width: 100%
+    left: 0
+    top: 0
+
+#clouds
+    overflow: hidden
+    position: fixed
+    bottom: 24px
+    width: 100%
+    z-index: -5
+    left: 0
+
+#goalstronaught
+    position: fixed
+    z-index: 10
+    left: 45%
+    top: 25%
+
+.friends
+    padding-top: 200px
+    z-index: 10
+    position: fixed
+    left: 60%
+
+
+// Footer positioning
+footer
+    position: fixed
+    z-index: 100
+    bottom: 20px
+    left: 20px
+
+// Pages
+[class*=page-]
+    position: relative
+    +transition-duration(200ms, 400ms)
+    +transition-property(opacity, top)
+    
+    top: 0
+    opacity: 1
+    
+    &.inactive
+        pointer-events: none
+        top: -100px
+        opacity: 0
+
+// Spinning stars
+#stars
+    +animate(spin, 800s, 0, linear)
+
+// Bouncing rockets
+#goalstronaught
+    +animate(rocket-bounce, 6s)
+
+.friends
+    +animate(rocket-bounce, 5s)
+
++keyframes(rocket-bounce)
+    0%
+        margin-top: 0
+    50%
+        margin-top: 10px
+    100%
+        margin-top: 0
+
++keyframes(spin)
+    0%
+        +transform(rotate(0deg))
+    25%
+        +transform(rotate(90deg))
+    50%
+        +transform(rotate(180deg))
+    75%
+        +transform(rotate(270deg))
+    100%
+        +transform(rotate(360deg))
