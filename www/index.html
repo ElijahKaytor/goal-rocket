@@ -34,8 +34,7 @@
     <body class=no-script>
         <script>document.body.className = '';</script>
         
-        <!-- NoScript support for form hiding -->
-        <span id=notify-me></span>
+        <div id=notify-me></div>
         
         <header>
             <a id=home href=#>
@@ -43,33 +42,43 @@
             </a>
             
             <span>Coming Soon</span>
-            <a href=#notify-me>Notify Me</a>
+            <a id=notify-button href=#notify-me>Notify Me</a>
         </header>
         
-        <section id=spiel>
+        <section id=content>
             <div id=prompt>
-                <p id=heights class=page-0>Take your goals to new heights.</p>
-                <p id=ready class='page-3 page-4 page-5 inactive'>Ready to reach your goals?</p>
-                <p id=self class='page-1 page-2 inactive'>Challenge yourself.</p>
-                <p id=compete class='page-2 inactive'>Challenge your friends.</p>
+                <p class='page-0'>Take your goals to new heights.</p>
+                <p class='page-3 page-4 page-5 inactive'>Ready to reach your goals?</p>
+                <p class='page-1 page-2 inactive'>Challenge yourself.</p>
+                <p class='page-2 inactive'>Challenge your friends.</p>
             </div>
             
             <!-- Sign-up for notification form -->
             <form class='page-3 page-4 page-5 inactive' id=notify-form method=post action=/notify>
-                <input id=email type=email name=email placeholder='Enter your email address'>
-                
-                <!-- Seperate DOM elements for JS and Non-JS users -->
-                <input id=ns-submit type=submit value='Notify Me'>
-                <button id=submit style=display:none;>Notify Me</button>
-            </form>
             
-            <script>
-                document.getElementById('submit').style.display = '';
-                document.getElementById('ns-submit').style.display = 'none';
-            </script>
+                <!-- Seperate DOM elements for JS and Non-JS users -->
+                <input class=ns id=ns-email type=email name=email placeholder='Enter your email address'>
+                <input class=ns id=ns-submit type=submit value='Notify Me'>
+                
+                <div id=email-container>
+                    <span id=email placeholder='Enter your email address' contenteditable spellcheck=false></span>
+                    <span id=domain-helper>@gmail.com</span>
+                    
+                    <ul id=domains style=display:none;>
+                        <li>@gmail.com</li>
+                        <li>@facebook.com</li>
+                        <li>@yahoo.com</li>
+                        <li>@hotmail.com</li>
+                        <li>@live.com</li>
+                    </ul>
+                </div>
+                
+                <button id=submit>Notify Me</button>
+                
+            </form>
         </section>
         
-        <section id=background>
+        <section id=images>
             <img id=goalstronaught src=/static/img/goalstronaught.png>
             <img class='friends page-2 page-3 page-4 inactive' src=/static/img/goal-hearted-friends.png>
             <img id=clouds src=/static/img/clouds.png>
