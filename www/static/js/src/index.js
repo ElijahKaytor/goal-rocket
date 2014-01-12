@@ -15,6 +15,10 @@ function helper() { return $.fn.text.apply($('#domain-helper'), arguments); }
 // Aliases
 helper.set = helper.get = helper;
 
+// Tab Tip
+helper.showTip = function() { $('#tab-tip').fadeIn();  };
+helper.hideTip = function() { $('#tab-tip').fadeOut(); };
+
 // List of commmon domains
 helper.domains = $('#domains li').map(function(index) {
     return $('#domains li').eq(index).text();
@@ -40,7 +44,58 @@ helper.complete = function(partialEmail) {
     
 };
 
-$('#email').on('keydown keypress', function(event) {
+function onEmailChange(email, keyCode) {
+    
+    // On [BKSP]
+    if (keyCode == 8) {
+        // Remove the last character for the selection
+        email = email.slice(0, -1);
+    }
+    
+    // On [SHIFT] [2]
+    if (keyCode == 64 && email.indexOf('@') !== email.length - 1) {
+        event.preventDefault();
+        return false;
+    }
+    
+    var suggestion = helper.complete(email);
+    
+    helper.set(suggestion);
+    
+    email.length > 0 && suggestion.length > 0?
+        helper.showTip()
+    :   helper.hideTip();
+    
+    // On [ENTER]
+    if (keyCode == 13) {
+        event.preventDefault();
+        
+        if (validEmail.exec(email)) $('#submit').click();
+        else if (email.length > 0) {
+            
+            $('#email').append($('#domain-helper').text()).focusEnd();
+            $('#domain-helper').html('');
+            helper.hideTip();
+            
+        }
+        
+        return false;
+    }
+    
+    // On [TAB]
+    if (keyCode == 9 && email.length > 0) {
+        event.preventDefault();
+        
+        $('#email').append($('#domain-helper').text()).focusEnd();
+        $('#domain-helper').html('');
+        helper.hideTip();
+        
+        return false;
+    }
+    
+}
+
+$('#email').on('keydown keypress paste input', function(event) {
     
     // Get relevant values
     var value = $('#email').text();
@@ -49,45 +104,8 @@ $('#email').on('keydown keypress', function(event) {
         String.fromCharCode(event.charCode)
     :   '';
     
-    // On [BKSP]
-    if (keyCode == 8) {
-        // Remove the last character for the selection
-        value = value.slice(0, -1);
-    }
-    
-    // On [SHIFT] [2]
-    if (keyCode == 64 && value.indexOf('@') !== -1) {
-        event.preventDefault();
-        return false;
-    }
-    
-    // Offer a suggestion
-    helper.set(helper.complete(value + character));
-    
-    // On [ENTER]
-    if (keyCode == 13) {
-        event.preventDefault();
-        
-        if (validEmail.exec(value)) $('#submit').click();
-        else if (value.length > 0) {
-            
-            $('#email').append($('#domain-helper').text()).focusEnd();
-            $('#domain-helper').html('');
-            
-        }
-        
-        return false;
-    }
-    
-    // On [TAB]
-    if (keyCode == 9 && value.length > 0) {
-        event.preventDefault();
-        
-        $('#email').append($('#domain-helper').text()).focusEnd();
-        $('#domain-helper').html('');
-        
-        return false;
-    }
+    // Trigger the email change function
+    onEmailChange(value + character, keyCode);
     
 });
 
@@ -99,7 +117,7 @@ var validEmail = /^[\w\.%+-]+@[\w\.-]+\.[A-z]{2,6}$/;
 $('#submit').click(function() {
     
     // Get the email address
-    var email = $('#email').val();
+    var email = $('#email').text();
     
     // Check if the email is valid
     if (!validEmail.exec(email)) return $('#invalid-input').show() && false;
