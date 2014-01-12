@@ -49,15 +49,20 @@ $('#email').on('keydown keypress', function(event) {
         String.fromCharCode(event.charCode)
     :   '';
     
-    // Offer a suggestion
-    helper.set(helper.complete(value + character));
-    
+    // On [BKSP]
+    if (keyCode == 8) {
+        // Remove the last character for the selection
+        value = value.slice(0, -1);
+    }
     
     // On [SHIFT] [2]
     if (keyCode == 64 && value.indexOf('@') !== -1) {
         event.preventDefault();
         return false;
     }
+    
+    // Offer a suggestion
+    helper.set(helper.complete(value + character));
     
     // On [ENTER]
     if (keyCode == 13) {
