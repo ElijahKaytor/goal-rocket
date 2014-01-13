@@ -21,7 +21,7 @@ $('#submit').on('click', function() {
     var email = $('#email').text();
     
     // Check if the email is valid
-    if (!validEmail.exec(email)) return $('#invalid-input').show() && false;
+    if (validEmail.test(email)) return $('#invalid-input').show() && false;
     else $('#invalid-input').hide();
     
     return false;

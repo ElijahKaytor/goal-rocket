@@ -8,8 +8,8 @@
 // Create function scope to allow compresssion of variables
 var helper = (function() {
     
-    // Namespace + DOM
-    function helper() { return $('#email-helper'); }
+    // Namespace
+    var helper = {};
     
     // Tab tip show/hide functions
     helper.tab = {};
@@ -21,9 +21,13 @@ var helper = (function() {
         return $.fn.text.apply($('#domain'), arguments);
     };
     
+    // Email validation function
+    helper.validate = function(email) {
+        return (/^[\w\.%+-]+@[\w\.-]+\.[A-z]{2,6}$/).test(email);
+    };
+    
     // Shorthand user input function
     helper.email = function() { return $('#email'); };
-    
     // Get the list of common domains
     helper.domains = $('#domains li').map(function(li) {
         return $('#domains li').eq(li).text();
