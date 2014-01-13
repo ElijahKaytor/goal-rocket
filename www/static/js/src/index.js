@@ -5,6 +5,11 @@
 /// Depencencies
 var $ = $ || console.error('Missing Dependencies: jQuery');
 
+/// Fix a FireFox psuedo-element event bug
+$('#email-helper').on('click', function() {
+    $('#email').get(0).focus();
+});
+
 /// Handle Form submissions
 // Regexp for email
 var validEmail = /^[\w\.%+-]+@[\w\.-]+\.[A-z]{2,6}$/;
