@@ -20,15 +20,15 @@
         <meta name=ga-id content=UA-43875802-5>
         <meta name=ga-site content=goalrocket.net>
         
-        <!-- Database -->
-        <meta name=firebase content=https://goalrocket-beta.firebaseio.com/>
+        <!-- Image prefetching -->
+        <script type=text/javascript>['spritesheet', 'src/clouds', 'src/stars'].map(function(a) {(new Image()).src='/static/img/'+a+'.png';});</script>
         
         <!-- Stylesheets (With Sourcemaps) -->
         <link rel=stylesheet href=/static/sass/index.sass.css>
         
         <!-- Resource Prefetching -->
-        <link rel=dns-prefetch href=//goalrocket-beta.firebaseio.com>
         <link rel=dns-prefetch href=//www.google-analytics.com>
+        <link rel=dns-prefetch href=//ssl.google-analytics.com>
     </head>
     
     <body class=no-script>
@@ -37,9 +37,7 @@
         <div id=notify-me></div>
         
         <header>
-            <a id=home href=#>
-                <img src=/static/img/logo.png title='Goal Rocket' alt='Goal Rocket'>
-            </a>
+            <a id=home href=# class=logo></a>
             
             <span>Coming Soon</span>
             <a id=notify-button href=#notify-me>Notify Me</a>
@@ -60,9 +58,9 @@
                 <input class=ns id=ns-email type=email name=email placeholder='Enter your email address'>
                 <input class=ns id=ns-submit type=submit value='Notify Me'>
                 
-                <div id=email-container>
+                <div id=email-helper>
                     <span id=email placeholder='Enter your email address' contenteditable spellcheck=false></span>
-                    <span id=domain-helper>@gmail.com</span>
+                    <span id=domain>@gmail.com</span>
                     <span id=tab-tip>TAB</span>
                     
                     <!-- Common Email Services -->
@@ -79,23 +77,24 @@
         </section>
         
         <section id=images>
-            <img id=goalstronaught src=/static/img/goalstronaught.png>
-            <img class='friends page-2 page-3 page-4 inactive' src=/static/img/goal-hearted-friends.png>
-            <img id=clouds src=/static/img/clouds.png>
-            <img id=stars src=/static/img/stars.png>
+            <span class=goalstronaught></span>
+            <span class='friends page-2 page-3 page-4 inactive'></span>
+            <span class=clouds></span>
+            <span class=stars></span>
         </section>
         
         <footer>
             <!-- Copyright 2014 DeadGhost Creative Agency -->
             <!-- Design:      Jenee Jernigan <jeneejernigan gmail.com> -->
             <!-- Development: Elijah Kaytor  <elijah.kaytor gmail.com> -->
-            <a href=http://deadgho.st/ target=_blank>
-                <img id=author src=/static/img/deadghost.png alt='DeadGhost Creative Agency'>
-            </a>
+            <a href=http://deadgho.st/ target=_blank class=deadghost></a>
         </footer>
         
         <!-- JavaScript resources (With Sourcemaps) -->
         <script src=/static/js/onload.min.js></script>
-        <script src=/static/js/deffered.min.js async></script>
+        <script data-src=/static/js/deffered.min.js>
+            window.onload=function(){window.setTimeout(function(){var a=document.createElement("script");a.src=$("script").last().attr("data-src"),document.head.appendChild(a)},0)};
+            //# sourceMappingURL=/static/js/inline-loader.min.map
+        </script>
     </body>
 </html>
