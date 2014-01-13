@@ -12,14 +12,12 @@ var helper = (function() {
     var helper = {};
     
     // Tab tip show/hide functions
-    helper.tab = {};
-    helper.tab.show = function() { $('#tab-tip').addClass('show');    };
-    helper.tab.hide = function() { $('#tab-tip').removeClass('show'); };
+    helper.tab = $('#tab-tip');
+    helper.tab.show = function() { helper.tab.addClass('show');    };
+    helper.tab.hide = function() { helper.tab.removeClass('show'); };
     
     // Shorthand domain suggestion function
-    helper.domain = function() {
-        return $.fn.text.apply($('#domain'), arguments);
-    };
+    helper.domain = $('#domain');
     
     // Email validation function
     helper.validate = function(email) {
@@ -27,18 +25,22 @@ var helper = (function() {
     };
     
     // Shorthand user input function
-    helper.email = function() { return $('#email'); };
+    helper.email = $('#email');
     // Get the list of common domains
     helper.domains = $('#domains li').map(function(li) {
         return $('#domains li').eq(li).text();
     });
+    
+    // Default domain suggestion
+    helper.default = helper.domains[0];
     
     // Email onChange handler
     helper.email.onChange = function(email) {
         
         // Suggest a new email
         var suggestion = helper.complete(email);
-        helper.domain(suggestion);
+        helper.domain.text(suggestion);
+        console.log(suggestion);
         
         // Hide/show the tab tip
         email.length > 0 && suggestion.length > 0?
@@ -76,19 +78,22 @@ var helper = (function() {
             // Prevent traditional [TAB] events
             event.preventDefault();
             // Complete the email, and focus to the end of the input field
-            helper.email().append(helper.domain()).focusEnd();
-            // Hide the tab tip and clear the helper
+            helper.email.empty().text(email + helper.domain.text()).focusEnd();
+            // Clear the helper and hide the tab tip
+            helper.domain.empty();
             helper.tab.hide();
-            helper.domain('');
             
             return false;
             
-        } 
+        }  else if (keyCode == 9) {
+            
+            // If there is no email to complete, prevent the event and move on
+            event.preventDefault();
+            return false;
+            
+        }
         
     };
-    
-    // Default domain suggestion
-    helper.default = helper.domains[0];
     
     // Email complete function
     helper.complete = function(email) {
@@ -129,7 +134,7 @@ var helper = (function() {
     $('#email').on('keydown', function(event) {
         
         // Get relevant values
-        var email = helper.email();
+        var email = helper.email.text();
         var keyCode = event.keyCode || event.which;
         var char = event.charCode? String.fromCharCode(event.charCode) : '';
         email += char;
