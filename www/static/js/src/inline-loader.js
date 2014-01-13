@@ -6,12 +6,8 @@
 
 // Defer the script until load event is fired
 window.onload = function() {
-    window.setTimeout(function() {
-        
-        // Avoid jQuery to ensure Sourcemaps are loaded properly
-        var script = document.createElement('script');
-            script.src = $('script').last().attr('data-src');
-        document.head.appendChild(script);
-        
-    }, 0);
+    // Avoid jQuery to ensure Sourcemaps are loaded properly
+    var script = document.createElement('script');
+        script.src = $('script').last().attr('data-src');
+    document.head.appendChild(script);
 };
