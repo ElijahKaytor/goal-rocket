@@ -22,9 +22,7 @@ var helper = (function() {
     };
     
     // Shorthand user input function
-    helper.email = function() {
-        return $.fn.text.apply($('#email'), arguments);
-    };
+    helper.email = function() { return $('#email'); };
     
     // Get the list of common domains
     helper.domains = $('#domains li').map(function(li) {
@@ -71,12 +69,10 @@ var helper = (function() {
         // Handle [TAB]
         if (keyCode == 9 && email.length > 0) {
             
-            console.log(keyCode, event);
-            
             // Prevent traditional [TAB] events
             event.preventDefault();
             // Complete the email, and focus to the end of the input field
-            helper.email(helper.domain()).focusEnd();
+            helper.email().append(helper.domain()).focusEnd();
             // Hide the tab tip and clear the helper
             helper.tab.hide();
             helper.domain('');
@@ -126,7 +122,7 @@ var helper = (function() {
     });
     
     // Mutation Events for cancellation
-    $('#email').on('keypress', function(event) {
+    $('#email').on('keydown', function(event) {
         
         // Get relevant values
         var email = helper.email();
