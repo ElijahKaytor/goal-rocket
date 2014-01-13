@@ -1,4 +1,4 @@
-/*! File: components/_form.sass */
+/*! File: content/_form.sass */
 
 @import 'compass/css3/border-radius'
 @import 'compass/css3/box-shadow'
@@ -10,7 +10,7 @@
     margin: 0
 
 // Generic Input styling
-#email-container, #ns-email, #submit, #ns-submit
+#email-helper, #ns-email, #submit, #ns-submit
     +border-radius(4px)
     font: 300 1.2em ('Colaborate', sans-serif)
     background-color: white
@@ -31,6 +31,10 @@
 #submit:hover, #ns-submit:hover
     background-color: #fbb03b
 
+#submit:-moz-focus-inner, #ns-submit:-moz-focus-inner
+    padding: 0
+    border: 0
+
 #submit
     padding-right: 20px
 #submit:before
@@ -38,12 +42,12 @@
     padding: 5px
 
 // Custom Email input
-#email-container, #ns-email
+#email-helper, #ns-email
     overflow: hidden
     width: 260px
     height: 20px
 
-#email-container
+#email-helper
     position: relative
     display: inline-block
     white-space: nowrap
@@ -64,6 +68,7 @@
 #email:after
     content: ''
     display: block
+    position: absolute
     width: 260px
     height: 20px
     margin-top: -20px
@@ -84,10 +89,10 @@
 #email:focus
     outline: none
 
-#email:not(:empty) ~ #domain-helper
+#email:not(:empty) ~ #domain
     display: inline-block
 
-#domain-helper
+#domain
     color: #999
     padding: 0
     display: none
@@ -109,7 +114,15 @@
     +border-radius(3px)
     text-shadow: 0 1px 0 #fff
 
-    display: none
+    display: inline-block
     margin: 0 0.1em
     line-height: 1.4
     white-space: nowrap
+    
+    +transition-property(opacity)
+    +transition-duration(200ms)
+    opacity: 0
+
+#tab-tip.show
+    opacity: 1
+    
