@@ -4,117 +4,13 @@
 
 /// Depencencies
 var $ = $ || console.error('Missing Dependencies: jQuery');
-// Deffered resources
-var Firebase = Firebase;
-var sha256 = sha256;
-
-
-/// Email helper
-function helper() { return $.fn.text.apply($('#domain-helper'), arguments); }
-
-// Aliases
-helper.set = helper.get = helper;
-
-// Tab Tip
-helper.showTip = function() { $('#tab-tip').fadeIn();  };
-helper.hideTip = function() { $('#tab-tip').fadeOut(); };
-
-// List of commmon domains
-helper.domains = $('#domains li').map(function(index) {
-    return $('#domains li').eq(index).text();
-});
-// Default domain to choose
-helper.default = helper.domains[0];
-
-helper.complete = function(partialEmail) {
-    
-    // If there is no information, return default  domain
-    if (partialEmail.indexOf('@') === -1) return helper.default;
-    
-    // Get the partial host
-    var partialHost = partialEmail.slice(partialEmail.indexOf('@'));
-    
-    // Generate a list of possible completions
-    var possibleDomains = helper.domains.filter(function(index, domain) {
-        return domain.startsWith(partialHost);
-    });
-    
-    // Return the host completion
-    return (possibleDomains[0] || '').slice(partialHost.length);
-    
-};
-
-function onEmailChange(email, keyCode) {
-    
-    // On [BKSP]
-    if (keyCode == 8) {
-        // Remove the last character for the selection
-        email = email.slice(0, -1);
-    }
-    
-    // On [SHIFT] [2]
-    if (keyCode == 64 && email.indexOf('@') !== email.length - 1) {
-        event.preventDefault();
-        return false;
-    }
-    
-    var suggestion = helper.complete(email);
-    
-    helper.set(suggestion);
-    
-    email.length > 0 && suggestion.length > 0?
-        helper.showTip()
-    :   helper.hideTip();
-    
-    // On [ENTER]
-    if (keyCode == 13) {
-        event.preventDefault();
-        
-        if (validEmail.exec(email)) $('#submit').click();
-        else if (email.length > 0) {
-            
-            $('#email').append($('#domain-helper').text()).focusEnd();
-            $('#domain-helper').html('');
-            helper.hideTip();
-            
-        }
-        
-        return false;
-    }
-    
-    // On [TAB]
-    if (keyCode == 9 && email.length > 0) {
-        event.preventDefault();
-        
-        $('#email').append($('#domain-helper').text()).focusEnd();
-        $('#domain-helper').html('');
-        helper.hideTip();
-        
-        return false;
-    }
-    
-}
-
-$('#email').on('keydown keypress paste input', function(event) {
-    
-    // Get relevant values
-    var value = $('#email').text();
-    var keyCode = event.keyCode || event.which;
-    var character = event.charCode?
-        String.fromCharCode(event.charCode)
-    :   '';
-    
-    // Trigger the email change function
-    onEmailChange(value + character, keyCode);
-    
-});
 
 /// Handle Form submissions
 // Regexp for email
 var validEmail = /^[\w\.%+-]+@[\w\.-]+\.[A-z]{2,6}$/;
 
 // Wait for user input
-$('#submit').click(function() {
+$('#submit').on('click', function() {
     
     // Get the email address
     var email = $('#email').text();
@@ -123,26 +19,6 @@ $('#submit').click(function() {
     if (!validEmail.exec(email)) return $('#invalid-input').show() && false;
     else $('#invalid-input').hide();
     
-    // Connect to the firebase (deffered to avoid needless connections)
-    var db = new Firebase($('meta[name=firebase]').attr('content'));
-    
-    // Add the users email
-    db.child('notify-list').child(sha256(email).slice(32)).set({
-        email: email,
-        time: new Date().getTime(),
-    }, function(error) {
-        
-        // Close the connection
-        try      { db.close(); }
-        catch(e) { db = null;  }
-        
-        // Check if there was an error
-        if (error)  return $('#database-error').show() && false;
-        // Otherwise display the sucess message
-        else $('#success').show();
-        
-    });
-    
     return false;
     
 });
@@ -150,7 +26,7 @@ $('#submit').click(function() {
 
 /// Listen for page actions
 // Direct link click
-$('a[href=#notify-me]').click(function() {
+$('#notify-button').on('click', function() {
     history.replaceState(null, null, '#notify-me');
     pages.switchTo(3);
     pages.stop();
@@ -166,7 +42,7 @@ $('#email').on('focus', function() {
 });
 
 // Home link clicked
-$('#home').click(function() {
+$('#home').on('click', function() {
     history.replaceState(null, null, '/');
     pages.cycle(2400, 0);
     
@@ -236,28 +112,3 @@ if (location.hash == '#notify-me') {
     pages.stop();
 }
 
-
-
-/// jQuery focusEnd function
-/// (http://stackoverflow.com/a/14022827)
-$.fn.focusEnd = function() {
-    $(this).focus();
-    var tmp = $('<span />').appendTo($(this)),
-        node = tmp.get(0),
-        range = null,
-        sel = null;
-    
-    if (document.selection) {
-        range = document.body.createTextRange();
-        range.moveToElementText(node);
-        range.select();
-    } else if (window.getSelection) {
-        range = document.createRange();
-        range.selectNode(node);
-        sel = window.getSelection();
-        sel.removeAllRanges();
-        sel.addRange(range);
-    }
-    tmp.remove();
-    return this;
-};
