@@ -77,15 +77,15 @@ module.exports = function(grunt) {
                 },
             },
             
-            'deffered.min.js': {
+            'deferred.min.js': {
                 options: {
-                    sourceMap: 'www/static/js/deffered.min.map',
-                    sourceMappingURL: 'deffered.min.map',
-                    banner: '/* File: deffered.min.js */'
+                    sourceMap: 'www/static/js/deferred.min.map',
+                    sourceMappingURL: 'deferred.min.map',
+                    banner: '/* File: deferred.min.js */'
                 },
                 
                 files: {
-                    'www/static/js/deffered.min.js': [
+                    'www/static/js/deferred.min.js': [
                         'www/static/js/src/email-helper.js',
                         'www/static/js/src/analytics.js',
                     ],
