@@ -6,25 +6,7 @@
 
 ## Installation
 
-You will need to compile the CSS and JS resources.
-
-#### Compile all resources
-
     $ npm install
-      [truncated output]
-    
-    $ grunt compile-all
-      
-      Running "sass:index" (sass) task
-      File "www/static/sass/index.sass.css" created.
-      
-      Running "uglify:onload.min.js" (uglify) task
-      [truncated output]
-      
-      Running "uglify:inline-loader.min.js" (uglify) task
-      [truncated output]
-      
-      Running "uglify:deffered.min.js" (uglify) task
       [truncated output]
       
       Done, without errors.
