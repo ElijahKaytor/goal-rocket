@@ -95,6 +95,6 @@ module.exports = function(grunt) {
     });
     
     grunt.registerTask('compile-all', ['sass', 'uglify']);
-    grunt.registerTask('default', 'compile-all');
+    grunt.registerTask('default', ['compile-all', 'watch']);
 };
 
