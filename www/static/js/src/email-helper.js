@@ -40,7 +40,6 @@ var helper = (function() {
         // Suggest a new email
         var suggestion = helper.complete(email);
         helper.domain.text(suggestion);
-        console.log(suggestion);
         
         // Hide/show the tab tip
         email.length > 0 && suggestion.length > 0?
