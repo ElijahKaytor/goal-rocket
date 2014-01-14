@@ -8,14 +8,20 @@
 
 You will need to compile the CSS and JS resources.
 
-#### JavaScript
+#### Compile all resources
 
-    $ npm install grunt grunt-contrib-uglify
+    $ npm install
       [truncated output]
     
-    $ grunt compress
+    $ grunt compile-all
+      
+      Running "sass:index" (sass) task
+      File "www/static/sass/index.sass.css" created.
       
       Running "uglify:onload.min.js" (uglify) task
+      [truncated output]
+      
+      Running "uglify:inline-loader.min.js" (uglify) task
       [truncated output]
       
       Running "uglify:deffered.min.js" (uglify) task
@@ -23,24 +29,24 @@ You will need to compile the CSS and JS resources.
       
       Done, without errors.
 
-#### SASS
-    
-    $ sass --sourcemap --compass www/static/sass/index.sass:www/static/sass/index.sass.css
-
-
 ## Development
+
+#### File Compilation
+
+Run the install as noted above, then to compile files as they are modified, run
+
+    $ grunt watch
+      
+      Running "watch" task
+      Waiting...
+
 
 #### JavaScript
     
-Code to be executed as soon as the page is visible goes in ``onload.min.js``.
+Code to be executed as soon as DOM is loaded goes in ``onload.min.js``.
 
-Code that may be executed after the important stuff is loaded goes into ``deffered.min.js``.
-(eg. Analytics)
+Code that is non-essential to loading the page goes in ``deferred.min.js``
 
-#### SASS
-    $ compass watch -c config/compass.rb
+``inline-loader.min.js`` controls the loading of ``defererred.min.js`` to ensure
+both the DOM and load events have been fired.
 
-Note: Compass may not update sourcemaps depending on your version.
-In this case use;
-
-    $ sass --sourcemap --compass --watch www/static/sass/index.sass:www/static/sass/index.sass.css
