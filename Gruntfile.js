@@ -4,8 +4,42 @@
 
 module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-contrib-sass');
     
     grunt.initConfig({
+        watch: {
+            options: { spawn: false, },
+            
+            scripts: {
+                files: ['www/static/js/src/*.js'],
+                tasks: ['uglify'],
+            },
+            
+            styles: {
+                files: ['www/static/sass/**/*.sass'],
+                tasks: ['sass'],
+            },
+        },
+        
+        sass: {
+            options: {
+                compass: true,
+                sourcemap: true,
+                style: 'compressed',
+            },
+            
+            index: {
+                files: [{
+                    expand: true,
+                    cwd: 'www/static/sass',
+                    src: ['*.sass'],
+                    dest: 'www/static/sass',
+                    ext: '.sass.css',
+                }],
+            }
+        },
+        
         uglify: {
             options: {
                 mangle: true,
@@ -60,6 +94,6 @@ module.exports = function(grunt) {
         }
     });
     
-    grunt.registerTask('compress', 'uglify');
+    grunt.registerTask('compile-all', ['sass', 'uglify']);
 };
 
