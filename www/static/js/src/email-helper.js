@@ -8,56 +8,53 @@
 // Create function scope to allow compresssion of variables
 var helper = (function() {
     
-    // Namespace
-    var helper = {};
-    
     // Tab tip show/hide functions
-    helper.tab = $('#tab-tip');
-    helper.tab.show = function() { helper.tab.addClass('show');    };
-    helper.tab.hide = function() { helper.tab.removeClass('show'); };
+    var tab = $('#tab-tip');
+    tab.show = function() { tab.addClass('show');    };
+    tab.hide = function() { tab.removeClass('show'); };
     
     // Shorthand domain suggestion function
-    helper.domain = $('#domain');
+    var domain = $('#domain');
     
     // Email validation function
-    helper.validate = function(email) {
+    var validate = function(email) {
         return (/^[\w\.%+-]+@[\w\.-]+\.[A-z]{2,6}$/).test(email);
     };
     
     // Shorthand user input function
-    helper.email = $('#email');
+    var email = $('#email');
     // Get the list of common domains
-    helper.domains = $('#domains li').map(function(li) {
+    var domains = $('#domains li').map(function(li) {
         return $('#domains li').eq(li).text();
     });
     
     // Default domain suggestion
-    helper.default = helper.domains[0];
+    domains.default = domains[0];
     
     // Email onChange handler
-    helper.email.onChange = function(email) {
+    email.onChange = function(input) {
         
         // Suggest a new email
-        var suggestion = helper.complete(email);
-        helper.domain.text(suggestion);
+        var suggestion = complete(input);
+        domain.text(suggestion);
         
         // Hide/show the tab tip
-        email.length > 0 && suggestion.length > 0?
-            helper.tab.show()
-        :   helper.tab.hide();
+        input.length > 0 && suggestion.length > 0?
+            tab.show()
+        :   tab.hide();
         
     };
     
     // Email keyDown handler
-    helper.email.onKeyDown = function(event, email, keyCode) {
+    email.onKeyDown = function(event, input, keyCode) {
         
         // Only allow one @ in the input field
-        if (keyCode == 64 && email.indexOf('@') !== email.length - 1 ) 
+        if (keyCode == 64 && input.indexOf('@') !== input.length - 1 ) 
             return false;
         
         // Handle [ENTER]
         if (keyCode == 13) {
-            if (helper.validate(email)) {
+            if (validate(input)) {
                 
                 // If the email is valid, submit the form
                 $('#submit').trigger('#click');
@@ -72,15 +69,15 @@ var helper = (function() {
         }
         
         // Handle [TAB]
-        if (keyCode == 9 && email.length > 0) {
+        if (keyCode == 9 && input.length > 0) {
             
             // Prevent traditional [TAB] events
             event.preventDefault();
             // Complete the email, and focus to the end of the input field
-            helper.email.empty().text(email + helper.domain.text()).focusEnd();
+            email.empty().text(input + domain.text()).focusEnd();
             // Clear the helper and hide the tab tip
-            helper.domain.empty();
-            helper.tab.hide();
+            domain.empty();
+            tab.hide();
             
             return false;
             
@@ -95,16 +92,16 @@ var helper = (function() {
     };
     
     // Email complete function
-    helper.complete = function(email) {
+    var complete = function(input) {
         
         // If there is no host, return the default
-        if (email.indexOf('@') === -1) return helper.default;
+        if (input.indexOf('@') === -1) return domains.default;
         
         // Get the partial host
-        var host = email.slice(email.indexOf('@'));
+        var host = input.slice(input.indexOf('@'));
         
         // Generate a list of suggestions
-        var suggestions = helper.domains.filter(function(index, domain) {
+        var suggestions = domains.filter(function(index, domain) {
             return domain.startsWith(host);
         });
         
@@ -114,16 +111,16 @@ var helper = (function() {
     };
     
     // Mutation Observer for speed + reliability of onChange events
-    helper.observer = new MutationObserver(function(mutations) {
+    var observer = new MutationObserver(function(mutations) {
         mutations.forEach(function(mutation) {
             if (mutation.type === 'characterData') {
-                helper.email.onChange(mutation.target.data);
+                email.onChange(mutation.target.data);
             }
         });
     });
     
     // Start the Mutation Observer
-    helper.observer.observe($('#email')[0], {
+    observer.observe($('#email')[0], {
         subtree: true,
         childList: true,
         characterData: true,
@@ -133,20 +130,28 @@ var helper = (function() {
     $('#email').on('keydown', function(event) {
         
         // Get relevant values
-        var email = helper.email.text();
+        var input = email.text();
         var keyCode = event.keyCode || event.which;
         var char = event.charCode? String.fromCharCode(event.charCode) : '';
-        email += char;
+        input += char;
         
         // Mutaion Observer fallback
-        if (!helper.observer) helper.email.onChange(email);
+        if (!observer) email.onChange(input);
         
         // Trigger the onKeyDown event
-        return helper.email.onKeyDown(event, email, keyCode);
+        return email.onKeyDown(event, input, keyCode);
         
     });
     
-    return helper;
+    // Export functions
+    return {
+        complete: complete,
+        observer: observer,
+        validate: validate,
+        domain: domain,
+        email: email,
+        tab: tab,
+    };
     
 })();
 
