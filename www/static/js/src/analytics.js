@@ -7,7 +7,7 @@
 
 // Load Google Analytics Asyncronously
 var ga = ga || function() { (ga.q = ga.q || []).push(arguments); };
-window.GoogleAnalyticsObject = 'ga'; ga.l = new Date().getTime();
+window.GoogleAnalyticsObject = 'ga'; ga.l = +new Date();
 
 // Create function scope to allow compresssion of variables
 (function() {
