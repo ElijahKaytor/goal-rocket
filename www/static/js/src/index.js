@@ -31,10 +31,16 @@ $('#submit').on('click', function() {
         // Remove invalid message if present
         $('#notify-form').removeClass('invalid');
         
+        // Prepare the Firebase URL
+        var databaseURL = 'https://goalrocket-beta.firebaseio.com/notify-list/';
+        
+        // Strip periods
+        address = address.split('.').join(',');
+        
         // Add the email to the notify list (Write-only Firebase)
         var request = new XMLHttpRequest();
-        request.open('POST', $('meta[name=notify-list]').attr('content'));
-        request.send(JSON.stringify({ email: address, time: +new Date(), }));
+        request.open('PUT', databaseURL + address + '.json');
+        request.send('{".sv": "timestamp"}');
         
         // Show a success message
         $('#notify-form').addClass('submitted');
