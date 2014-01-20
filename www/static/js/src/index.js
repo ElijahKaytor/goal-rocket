@@ -18,16 +18,30 @@ var validEmail = /^[\w\.%+-]+@[\w\.-]+\.[A-z]{2,6}$/;
 $('#submit').on('click', function() {
     
     // Get the email address
-    var email = $('#email').text();
+    var address = $('#email').text();
     
-    // Check if the email is valid
-    if (validEmail.test(email)) return $('#invalid-input').show() && false;
-    else $('#invalid-input').hide();
-    
-    return false;
+    // Client-side error detection
+    if (!validEmail.test(address)) {
+        
+        // Show the invalid email message
+        $('#notify-form').addClass('invalid');
+        
+    } else {
+        
+        // Remove invalid message if present
+        $('#notify-form').removeClass('invalid');
+        
+        // Add the email to the notify list (Write-only Firebase)
+        var request = new XMLHttpRequest();
+        request.open('POST', $('meta[name=notify-list]').attr('content'));
+        request.send(JSON.stringify({ email: address, time: +new Date(), }));
+        
+        // Show a success message
+        $('#notify-form').addClass('submitted');
+        
+    }
     
 });
-
 
 /// Listen for page actions
 // Direct link click
