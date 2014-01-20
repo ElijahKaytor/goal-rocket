@@ -43,21 +43,16 @@
             <a id=notify-button href=#notify-me>Notify Me</a>
         </header>
         
-        <section id=content>
-            <div id=prompt>
+        <article id=content>
+            <section id=prompt>
                 <p class='page-0'>Take your goals to new heights.</p>
                 <p class='page-3 page-4 page-5 inactive'>Ready to reach your goals?</p>
                 <p class='page-1 page-2 inactive'>Challenge yourself.</p>
                 <p class='page-2 inactive'>Challenge your friends.</p>
-            </div>
+            </section>
             
             <!-- Sign-up for notification form -->
-            <form class='page-3 page-4 page-5 inactive' id=notify-form method=post action=/notify>
-            
-                <!-- Seperate DOM elements for JS and Non-JS users -->
-                <input class=ns id=ns-email type=email name=email placeholder='Enter your email address'>
-                <input class=ns id=ns-submit type=submit value='Notify Me'>
-                
+            <section id=notify-form class='page-3 page-4 page-5 inactive'>
                 <div id=email-helper>
                     <span id=email placeholder='Enter your email address' contenteditable spellcheck=false></span>
                     <span id=domain>@gmail.com</span>
@@ -72,16 +67,15 @@
                 </div>
                 
                 <button id=submit>Notify Me</button>
-                
-            </form>
+            </section>
         </section>
         
-        <section id=images>
+        <article id=images>
             <span class=goalstronaught></span>
             <span class='friends page-2 page-3 page-4 inactive'></span>
             <span class=clouds></span>
             <span class=stars></span>
-        </section>
+        </article>
         
         <footer>
             <!-- Copyright 2014 DeadGhost Creative Agency -->
