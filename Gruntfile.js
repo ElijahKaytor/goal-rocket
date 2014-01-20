@@ -58,25 +58,11 @@ module.exports = function(grunt) {
                 files: {
                     'www/static/js/onload.min.js': [
                         'www/static/js/src/jquery-core-2.1.0pre.js',
+                        'www/static/js/src/deferred-loader.js',
                         'www/static/js/src/index.js',
                     ],
                 }
             },
-            
-            'inline-loader.min.js': {
-                options: {
-                    sourceMap: 'www/static/js/inline-loader.min.map',
-                    sourceMappingURL: '/static/js/inline-loader.min.map',
-                    banner: '/* File: inline-loader.min.js */'
-                },
-                
-                files: {
-                    'www/static/js/inline-loader.min.js': [
-                        'www/static/js/src/inline-loader.js',
-                    ],
-                },
-            },
-            
             'deferred.min.js': {
                 options: {
                     sourceMap: 'www/static/js/deferred.min.map',

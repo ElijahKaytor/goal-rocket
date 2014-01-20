@@ -92,9 +92,6 @@
         
         <!-- JavaScript resources (With Sourcemaps) -->
         <script src=/static/js/onload.min.js></script>
-        <script data-src=/static/js/deferred.min.js>
-            window.onload=function(){var a=document.createElement("script");a.src=$("script").last().attr("data-src"),document.head.appendChild(a)};
-            //# sourceMappingURL=/static/js/inline-loader.min.map
-        </script>
+        <script data-deferred-src=/static/js/deferred.min.js></script>
     </body>
 </html>
