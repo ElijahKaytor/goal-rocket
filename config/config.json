@@ -1,0 +1,18 @@
+{
+  "development": {
+    "username":  "",
+    "password":  "",
+    "database":  "gr_dev",
+    "host":      "localhost",
+    "port":      5432,
+    "dialect":   "postgres"
+  },
+  "production": {
+    "username":  "",
+    "password":  "",
+    "database":  "goalrocket",
+    "host":      "localhost",
+    "port":      5432,
+    "dialect":   "postgres"
+  }
+}

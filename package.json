@@ -6,7 +6,7 @@
     "private": true,
     "repository": {
         "type" : "git",
-        "url" : "ssh://git@deadgho.st:57112/Syrup-tan/goalrocket-v2.git"
+        "url": "git@bitbucket.org:deadghost/goal-rocket.git"
     },
     "contributors": [
         {
@@ -28,7 +28,13 @@
         "grunt-cli": "~0.1.11",
         "grunt-contrib-sass": "~0.6.0",
         "grunt-contrib-watch": "~0.5.3",
-        "grunt-contrib-uglify": "~0.2.7"
+        "grunt-contrib-uglify": "~0.2.7",
+        "express": "~3.4.8",
+        "lodash": "~2.4.1",
+        "sequelize": "~1.7.0-rc2",
+        "sequelize-postgres": "~2.0.0-beta.2",
+        "pg": "~2.11.0",
+        "validator": "~3.1.0"
     },
     "scripts": {
         "install": "./node_modules/grunt-cli/bin/grunt compile-all"
